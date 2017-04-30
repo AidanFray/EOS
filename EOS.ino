@@ -1,22 +1,38 @@
-
-
-
-  /*
-
-  Old motor setup with dual sensor read.
-
-  Attempting to modulate motor speed depending on sensor read.
-
-  */
-
   //motor functions
   int motorDelay;
 
+  //Pins for left and right wheels
   byte left1, left2, left3, left4;
-
   byte right1, right2, right3, right4;
 
   int moveCount; // Counter for the number of steps
+
+  void setup() {
+    //Sets up directions for wheels
+    leftForwards();
+    rightForwards();
+
+    pinMode(left1, OUTPUT);
+    pinMode(left2, OUTPUT);
+    pinMode(left3, OUTPUT);
+    pinMode(left4, OUTPUT);
+    digitalWrite(left1, HIGH);
+    pinMode(right1, OUTPUT);
+    pinMode(right2, OUTPUT);
+    pinMode(right3, OUTPUT);
+    pinMode(right4, OUTPUT);
+    digitalWrite(right1, HIGH);
+
+    motorDelay = 1200;
+
+    moveCount = 0; // Set the counter to 0
+
+    pinMode(3, OUTPUT);
+    pinMode(2, INPUT);
+    pinMode(12, OUTPUT);
+    pinMode(13, INPUT);
+    Serial.begin(9600);
+  }
 
   void leftForwards()
   {
@@ -37,10 +53,6 @@
   {
     right1 = 11; right2 = 10; right3 = 9; right4 = 8;
   }
-
-  //sensor
-  //left hand sensor trig = 3 & echo = 2
-  //right hand sensor trig = 12 & echo = 13
 
   float sensorLeftRead()
   {
@@ -145,59 +157,31 @@
     delayMicroseconds(motorDelay);
   }
 
-  void setup() {
-
-    //motor
-
-    leftForwards();
-    rightForwards();
-
-    pinMode(left1, OUTPUT);
-    pinMode(left2, OUTPUT);
-    pinMode(left3, OUTPUT);
-    pinMode(left4, OUTPUT);
-    digitalWrite(left1, HIGH);
-
-    pinMode(right1, OUTPUT);
-    pinMode(right2, OUTPUT);
-    pinMode(right3, OUTPUT);
-    pinMode(right4, OUTPUT);
-    digitalWrite(right1, HIGH);
-
-    motorDelay = 1200;
-
-    moveCount = 0; // Set the counter to 0
-
-             //sensors
-
-    pinMode(3, OUTPUT);
-    pinMode(2, INPUT);
-    pinMode(12, OUTPUT);
-    pinMode(13, INPUT);
-    Serial.begin(9600);
-
-  }
-
   float leftS;
   float rightS;
   void loop() {
 
+    //Distance sensors
     leftS = sensorLeftRead();
     rightS = sensorRightRead();
 
-    for (int i = 0; i < 20; ++i)
+    //Movement
+    for (int i = 0; i < 5; ++i)
     {
       int range = 100;
       int diff = leftS - rightS;
 
+      //If the robots position doesn't need adjusting
       if (abs(diff) < range)
       {
         forward();
       }
+      //If the right side needs adjusting
       else if (diff > 0)
       {
         right_move();
       }
+      //If the left side needs adjusting
       else
       {
         left_move();
