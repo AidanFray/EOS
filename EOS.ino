@@ -1,3 +1,5 @@
+//complex math from Dee
+
 //motor functions
 int motorDelay = 1200;
 
