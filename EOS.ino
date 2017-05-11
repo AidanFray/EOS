@@ -1,15 +1,13 @@
 //motor functions
-int motorDelay;
+int motorDelay = 1200;
 
 //Pins for left and right wheels
 byte left1, left2, left3, left4;
 byte right1, right2, right3, right4;
 
 void setup() {
-  //Sets up directions for wheels
   leftForwards();
   rightForwards();
-
   pinMode(left1, OUTPUT);
   pinMode(left2, OUTPUT);
   pinMode(left3, OUTPUT);
@@ -20,9 +18,6 @@ void setup() {
   pinMode(right3, OUTPUT);
   pinMode(right4, OUTPUT);
   digitalWrite(right1, HIGH);
-
-  motorDelay = 1200;
-
   pinMode(3, OUTPUT);
   pinMode(2, INPUT);
   pinMode(12, OUTPUT);
@@ -31,26 +26,13 @@ void setup() {
 }
 
 //These methods change the direction the wheels travel
-void leftForwards()
-{
-  left1 = 7; left2 = 6; left3 = 5; left4 = 4;
-}
-void leftReverse()
-{
-  left1 = 4; left2 = 5; left3 = 6; left4 = 7;
-}
-void rightForwards()
-{
-  right1 = 8; right2 = 9; right3 = 10; right4 = 11;
-}
-void rightReverse()
-{
-  right1 = 11; right2 = 10; right3 = 9; right4 = 8;
-}
+void leftForwards() { left1 = 7; left2 = 6; left3 = 5; left4 = 4;}
+void leftReverse() { left1 = 4; left2 = 5; left3 = 6; left4 = 7;}
+void rightForwards() { right1 = 8; right2 = 9; right3 = 10; right4 = 11;}
+void rightReverse() { right1 = 11; right2 = 10; right3 = 9; right4 = 8;}
 
 //Methods that record data from the sensors
-float sensorLeftRead()
-{
+float sensorLeftRead() {
   digitalWrite(12, LOW);
   delayMicroseconds(2);
   digitalWrite(12, HIGH);
@@ -58,8 +40,7 @@ float sensorLeftRead()
   digitalWrite(12, LOW);
   return pulseIn(13, HIGH);
 }
-float sensorRightRead()
-{
+float sensorRightRead() {
   digitalWrite(3, LOW);
   delayMicroseconds(2);
   digitalWrite(3, HIGH);
@@ -69,8 +50,7 @@ float sensorRightRead()
 }
 
 //Will cause motion in the set direction the wheels are set
-void move()
-{
+void move() {
   digitalWrite(left2, HIGH);
   digitalWrite(right2, HIGH);
   delayMicroseconds(motorDelay);
@@ -98,8 +78,7 @@ void move()
 }
 
 //Moves the robot left
-void right_move()
-{
+void right_move() {
   rightForwards();
   leftReverse();
   move();
@@ -134,32 +113,63 @@ float leftS;
 float rightS;
 
 void loop() {
-
   //Distance sensors
   leftS = sensorLeftRead();
   rightS = sensorRightRead();
 
   for (int i = 0; i < 5; ++i)
   {
+    //Margin of error before determining if the sensors are level
     int range = 50;
-    int out_of_range_val = 3000;
+
+    //The smaller the difference, the more the sensors are level
     int diff = leftS - rightS;
 
-    //If the robots position doesn't need adjusting
-    if (abs(diff) < range)
+    //If the robot is close to a surface
+    if((!huge_distance()))
     {
-      forward_move();
-    }
-    //If the right side needs adjusting
-    else if (diff > 0)
-    {
-      right_move();
-    }
-    //If the left side needs adjusting
-    else
-    {
-      left_move();
+      //If the robots position doesn't need adjusting
+      if (abs(diff) < range)
+      {
+        forward_move();
+      }
+      //If the right side needs adjusting
+      else if (diff > 0)
+      {
+        right_move();
+      }
+      //If the left side needs adjusting
+      else
+      {
+        left_move();
+      }
     }
 
+    //forward_move();
   }
+}
+
+//Executed if a
+int out_of_range_val = 5000;
+bool huge_distance()
+{
+    //Evaluates
+    bool leftOutOfRange = (leftS > out_of_range_val);
+    bool rightOutOfRange = (rightS > out_of_range_val);
+
+    if (leftOutOfRange && rightOutOfRange) {
+      forward_move();
+      return true;
+    }
+    else if (leftOutOfRange) {
+       right_move();
+       return true;
+    }
+    else if (rightOutOfRange)
+    {
+      left_move();
+      return true;
+    }
+
+    return false;
 }
