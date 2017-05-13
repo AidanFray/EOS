@@ -1,6 +1,16 @@
 #include "Distance_Sensors.h"
 #include "Movement.h"
 
+//Used to select what mode the robot is to run in
+enum class Mode
+{
+	Auto_Movement, 
+	Manual_Control,
+};
+
+Mode opperation_mode = Mode::Auto_Movement; //Default
+
+//Run at the start
 void setup() {
   Movement.leftForwards();
   Movement.rightForwards();
@@ -21,9 +31,19 @@ void setup() {
   Serial.begin(9600);
 }
 
-void loop() {
-	
-	//Runs the movement loop
-	Movement.loop();
+//Operation loop that is end
+void loop() 
+{
+	switch (opperation_mode)
+	{
+	case Mode::Auto_Movement:
+		Movement.loop();
+	case Mode::Manual_Control:
+		//-------------------//
+		// Serial Code here  //
+		//-------------------//
+	default:
+		break;
+	}
 }
 
