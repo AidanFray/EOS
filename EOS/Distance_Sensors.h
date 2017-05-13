@@ -1,21 +1,23 @@
 // Distance_Sensors.h
-
-
 #ifndef _DISTANCE_SENSORS_h
 #define _DISTANCE_SENSORS_h
-
 class _sensors
 {
 public:
 	_sensors() {};
 
-	float leftS;
-	float rightS;
+	//Integer that provides a cut-off for the distance
+	const int out_of_range_val = 5000;
 
+	//Value for distance for the left and right sensors
+	float leftSensorValue;
+	float rightSensorValue;
+
+	//Methods below return data from the sensors
 	void sensorLeftRead();
 	void sensorRightRead();
 
-	const int out_of_range_val = 5000;
+	//Method that deals with distances over the cut-off point
 	bool huge_distance();
 };
 extern _sensors Sensor;
@@ -25,7 +27,5 @@ extern _sensors Sensor;
 #else
 	#include "WProgram.h"
 #endif
-
-
 #endif
 
