@@ -1,9 +1,7 @@
 #include "Movement.h"
 #include "Distance_Sensors.h"
-
 _movement Movement = _movement();
 
-//Code that will repeat
 void _movement::loop()
 {
 	//Distance sensors
@@ -13,7 +11,7 @@ void _movement::loop()
 	for (int i = 0; i < 5; ++i)
 	{
 		//The smaller the difference, the more the sensors are level
-		int diff = Sensor.leftS - Sensor.rightS;
+		int diff = Sensor.leftSensorValue - Sensor.rightSensorValue;
 
 		//If the robot is close to a surface
 		if ((!Sensor.huge_distance()))
@@ -37,7 +35,6 @@ void _movement::loop()
 	}
 }
 
-//Direction
 void _movement::move() {
 	digitalWrite(left2, HIGH);
 	digitalWrite(right2, HIGH);
@@ -88,7 +85,6 @@ void _movement::reverse()
 	move();
 }
 
-//These methods change the direction the wheels travel
 void _movement::leftForwards()
 { left1 = 7; left2 = 6; left3 = 5; left4 = 4; }
 void _movement::rightForwards()
@@ -97,5 +93,3 @@ void _movement::leftReverse()
 { left1 = 4; left2 = 5; left3 = 6; left4 = 7; }
 void _movement::rightReverse()
 { right1 = 11; right2 = 10; right3 = 9; right4 = 8; }
-
-
