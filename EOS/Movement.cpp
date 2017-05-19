@@ -86,10 +86,18 @@ void _movement::reverse()
 }
 
 void _movement::leftForwards()
-{ left1 = 7; left2 = 6; left3 = 5; left4 = 4; }
+{ 
+	left1 = 7; left2 = 6; left3 = 5; left4 = 4; 
+}
 void _movement::rightForwards()
-{ right1 = 8; right2 = 9; right3 = 10; right4 = 11; }
+{ 
+	right1 = 8; right2 = 9; right3 = 10; right4 = 11; 
+}
 void _movement::leftReverse()
-{ left1 = 4; left2 = 5; left3 = 6; left4 = 7; }
+{ 
+	left1 = 4; left2 = 5; left3 = 6; left4 = 7; 
+}
 void _movement::rightReverse()
-{ right1 = 11; right2 = 10; right3 = 9; right4 = 8; }
+{ 
+	right1 = 11; right2 = 10; right3 = 9; right4 = 8; 
+}

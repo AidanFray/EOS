@@ -33,7 +33,6 @@ void setup() {
   Serial.begin(9600);
 }
 
-//Operation loop that is end
 void loop()
 {
 	switch (opperation_mode)
