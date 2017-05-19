@@ -1,10 +1,12 @@
+//version 2.0
+
 #include "Distance_Sensors.h"
 #include "Movement.h"
 
 //Used to select what mode the robot is to run in
 enum class Mode
 {
-	Auto_Movement, 
+	Auto_Movement,
 	Manual_Control,
 };
 
@@ -32,7 +34,7 @@ void setup() {
 }
 
 //Operation loop that is end
-void loop() 
+void loop()
 {
 	switch (opperation_mode)
 	{
@@ -46,4 +48,3 @@ void loop()
 		break;
 	}
 }
-
