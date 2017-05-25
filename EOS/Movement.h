@@ -12,17 +12,8 @@ public:
 	//Pin orders for right wheel
 	float right1, right2, right3, right4;
 
-	//Equates to speed. With 1200 being the max speed
-	const int motorDelay = 1200;
-
-	//Margin for error when determining if parallel
-	const int range = 50;			
-
-	//The loop for robot movement
-	void loop();
-
 	//Method moves the robot
-	void move();
+	void move(int motorDelay);
 
 	//Methods change the direction
 	void right();

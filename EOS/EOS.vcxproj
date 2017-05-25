@@ -82,13 +82,17 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Auto_Movement.h" />
     <ClInclude Include="Distance_Sensors.h" />
     <ClInclude Include="Movement.h" />
+    <ClInclude Include="Serial_Turn.h" />
     <ClInclude Include="__vm\.EOS.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Auto_Movement.cpp" />
     <ClCompile Include="Distance_Sensors.cpp" />
     <ClCompile Include="Movement.cpp" />
+    <ClCompile Include="Serial_Turn.cpp" />
   </ItemGroup>
   <PropertyGroup>
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>

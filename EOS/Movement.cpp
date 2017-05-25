@@ -2,40 +2,7 @@
 #include "Distance_Sensors.h"
 _movement Movement = _movement();
 
-void _movement::loop()
-{
-	//Distance sensors
-	Sensor.sensorLeftRead();
-	Sensor.sensorRightRead();
-
-	for (int i = 0; i < 5; ++i)
-	{
-		//The smaller the difference, the more the sensors are level
-		int diff = Sensor.leftSensorValue - Sensor.rightSensorValue;
-
-		//If the robot is close to a surface
-		if ((!Sensor.huge_distance()))
-		{
-			//If the robots position doesn't need adjusting
-			if (abs(diff) < range)
-			{
-				Movement.forward();
-			}
-			//If the right side needs adjusting
-			else if (diff > 0)
-			{
-				Movement.right();
-			}
-			//If the left side needs adjusting
-			else
-			{
-				Movement.left();
-			}
-		}
-	}
-}
-
-void _movement::move() {
+void _movement::move(int motorDelay) {
 	digitalWrite(left2, HIGH);
 	digitalWrite(right2, HIGH);
 	delayMicroseconds(motorDelay);
@@ -64,25 +31,21 @@ void _movement::move() {
 void _movement::right() {
 	rightForwards();
 	leftReverse();
-	move();
 }
 void _movement::left()
 {
 	leftForwards();
 	rightReverse();
-	move();
 }
 void _movement::forward()
 {
 	leftForwards();
 	rightForwards();
-	move();
 }
 void _movement::reverse()
 {
 	leftReverse();
 	rightReverse();
-	move();
 }
 
 void _movement::leftForwards()
