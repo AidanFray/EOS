@@ -3,6 +3,7 @@ Auto_Movement AutoMovement;
 
 void Auto_Movement::setup()
 {
+	//TODO: Re-factor and comment this
 	Movement.leftForwards();
 	Movement.rightForwards();
 	pinMode(Movement.left1, OUTPUT);

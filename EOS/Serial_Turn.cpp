@@ -3,9 +3,8 @@ _manual Manual_Control = _manual();
 
 void _manual::setup()
 {
-	while (Serial.available() > 0) {  //flush the buffer to prevent junk data being passed anywhere if greater than 0
-		Serial.read(); delay(100);
-	}
+	flush_buffer();
+
 	Movement.leftForwards();
 	Movement.rightForwards();
 
